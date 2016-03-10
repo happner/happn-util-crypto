@@ -41,6 +41,7 @@ describe("crypto-test", function () {
             var decryptorKeys = cryptoUtil.createKeyPair();
 
             var encryptedData = cryptoUtil.asymmetricEncrypt(decryptorKeys.publicKey, encryptorKeys.privateKey, message);
+            var decrypted = cryptoUtil.asymmetricDecrypt(encryptorKeys.publicKey, decryptorKeys.privateKey, encryptedData);
             var decryptedData = JSON.parse(cryptoUtil.asymmetricDecrypt(encryptorKeys.publicKey, decryptorKeys.privateKey, encryptedData));
 
             expect(decryptedData.test).to.equal(JSON.parse(message).test);
@@ -82,23 +83,3 @@ describe("crypto-test", function () {
     });
 
 });
-
-
-
-/*
-describe('A test suite', function () {
-    var expect = window.expect;
-
-    beforeEach(function () {
-
-    });
-
-    afterEach(function () {
-
-    });
-
-    it('should fail', function () {
-        expect(true).to.be.equal(false);
-    });
-});
-*/
