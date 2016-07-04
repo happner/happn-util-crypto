@@ -1,21 +1,23 @@
+var browserify = require('browserify');
 var gulp = require('gulp');
-var browserify = require('gulp-browserify');
-var minify = require('gulp-minify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var uglify = require('gulp-uglify');
+var gutil = require('gulp-util');
 var header = require('gulp-header');
 
-// Basic usage 
-gulp.task('default', function() {
-    // Single entry point to browserify 
-    gulp.src('lib/crypto.js')
-        .pipe(browserify({
-          insertGlobals : false,
-          debug : !gulp.env.production,
+gulp.task('default', function () {
+  // set up the browserify instance on a task basis
+  var b = browserify({
+    entries: 'lib/crypto.js',
+    debug: false
+  });
 
-        }))
-        .pipe(minify({
-	        exclude: ['tasks'],
-	        ignoreFiles: ['-min.js']
-	      }))
-        .pipe(header('/**HAPPN CRYPTO UTILS**/\r\n'))
-        .pipe(gulp.dest('./build'))
+  return b.bundle()
+    .pipe(source('lib/crypto.js'))
+    .pipe(buffer())
+    .pipe(uglify())
+    .pipe(header('/**HAPPN CRYPTO UTILS**/\r\n'))
+    .on('error', gutil.log)
+    .pipe(gulp.dest('./build'))
 });

@@ -13,7 +13,7 @@ module.exports = function(config) {
     frameworks: ['mocha', 'chai'],
 
     files: [
-      'build/crypto-min.js',
+      'build/lib/crypto.js',
       'test/crypto-test.js'
     ],
 
