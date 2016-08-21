@@ -80,6 +80,34 @@ describe("crypto-test", function () {
 
         });
 
+      it("signs a nonce and verifies it", function (callback) {
+
+        var nonce = cryptoUtil.generateNonce('TESTVALUE');
+        var nonce1 = cryptoUtil.generateNonce();
+        var nonce2 = cryptoUtil.generateNonce('TESTVALUE');
+
+        expect(nonce).to.equal(nonce2);
+
+        var keyPair = cryptoUtil.createKeyPair();
+        var keyPair1 = cryptoUtil.createKeyPair();
+
+        var digest = cryptoUtil.sign(nonce, keyPair.privateKey);
+        var digest1 = cryptoUtil.sign(nonce1, keyPair1.privateKey);
+        var digest2 = cryptoUtil.sign(nonce2, keyPair.privateKey);
+
+
+        expect(digest).to.equal(digest2);
+        expect(digest).to.not.equal(digest1);
+
+        expect(cryptoUtil.verify(nonce, digest, keyPair.publicKey)).to.equal(true);
+        expect(cryptoUtil.verify(nonce1, digest1, keyPair1.publicKey)).to.equal(true);
+        expect(cryptoUtil.verify(nonce1, digest, keyPair.publicKey)).to.equal(false);
+        expect(cryptoUtil.verify(nonce, digest1, keyPair.publicKey)).to.equal(false);
+
+        callback();
+
+      });
+
     });
 
 });

@@ -6,3 +6,8 @@
 ----------------
 - updated new browser library build
 - fixed browser and server side tests
+
+2016-08-20 0.2.0
+----------------
+- have createHashFromString method
+- have generateNonce method
