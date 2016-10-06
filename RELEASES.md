@@ -11,3 +11,7 @@
 ----------------
 - have createHashFromString method
 - have generateNonce method
+
+2016-10-06 0.2.1
+----------------
+- added explicit reference to pbkdf2 3.0.4

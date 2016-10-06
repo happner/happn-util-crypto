@@ -30,7 +30,7 @@ describe('middleware-test', function() {
 			var app = connect();
 
 			cryptoUtil.attacheMiddleware(app);
-			cryptoUtil.attacheMiddleware(app, '/consent_util_crypto/alternative_route');
+			cryptoUtil.attacheMiddleware(app, '/happn_util_crypto/alternative_route');
 
 			server = http.createServer(app);
 
