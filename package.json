@@ -1,7 +1,7 @@
 {
   "name": "happn-util-crypto",
   "description": "Happn cryptograpy utilities",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "lib/crypto",
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
     "async": "1.5.2",
     "bigi": "1.4.1",
     "bitcore-ecies": "1.0.3",
-    "bitcore-lib": "0.14.0",
+    "bitcore-lib": "^0.14.0",
     "crypto-browserify": "3.11.0",
     "node-uuid": "^1.4.7",
     "pbkdf2": "3.0.4"

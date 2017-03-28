@@ -19,3 +19,7 @@
 2017-03-28 0.2.2
 ----------------
 - froze bitcore dependancies
+
+2017-03-28 0.2.3
+----------------
+- unfroze bitcore-lib
