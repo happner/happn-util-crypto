@@ -23,3 +23,7 @@
 2017-03-28 0.2.3
 ----------------
 - unfroze bitcore-lib
+
+2017-03-28 0.2.4
+----------------
+- rebuild browser crypto
