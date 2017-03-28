@@ -15,3 +15,7 @@
 2016-10-06 0.2.1
 ----------------
 - added explicit reference to pbkdf2 3.0.4
+
+2017-03-28 0.2.2
+----------------
+- froze bitcore dependancies
