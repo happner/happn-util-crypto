@@ -13,7 +13,7 @@ crypto
  - gulp test runs tests in node and in browser using karma
 
 to build browser code:
-gulp --gulpfile "./gulp-crypto.js"
+node ./node_modules/gulp/bin/gulp.js --gulpfile "./gulp-crypto.js"
 
 to test browser code:
 ./node_modules/karma/bin/karma start karma.crypto.conf.js
