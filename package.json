@@ -13,7 +13,7 @@
   "dependencies": {
     "async": "^2.6.1",
     "bitcore-ecies": "^1.0.3",
-    "bitcore-lib": "^0.14.0",
+    "bitcore-lib": "^0.16.0",
     "crypto-browserify": "^3.12.0",
     "uuid": "^3.3.2",
     "randombytes": "^2.0.6"
