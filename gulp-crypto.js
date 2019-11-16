@@ -2,7 +2,7 @@ var browserify = require('browserify');
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
-var uglify = require('gulp-uglify');
+var uglify = require('gulp-uglify-es').default;
 var gutil = require('gulp-util');
 var header = require('gulp-header');
 
