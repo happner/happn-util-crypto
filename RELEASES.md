@@ -23,8 +23,12 @@
 2017-03-28 0.2.3
 ----------------
 - unfroze bitcore-lib
-- 
+
 2020-04-29 1.0.1
 ----------------
 - upgrade to async@3
 - prettier, eslint
+
+2020-04-29 1.0.2
+----------------
+- fix missing build/lib folder in npm package
