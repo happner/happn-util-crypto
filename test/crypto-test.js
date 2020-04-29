@@ -1,57 +1,64 @@
-describe("crypto-test", function () {
-
+describe('crypto-test', function() {
   var crypto;
   var expect;
   var cryptoUtil;
 
-  if (typeof window == 'undefined'){
-    	var chai = require('chai')
-      , crypto = require('../lib/crypto')
-      , expect = chai.expect
-      , cryptoUtil = new crypto();
-  }
-  else{
-      expect = window.expect;
-      cryptoUtil = new window.Crypto();
+  if (typeof window === 'undefined') {
+    var chai = require('chai'),
+      crypto = require('../lib/crypto'),
+      expect = chai.expect,
+      cryptoUtil = new crypto();
+  } else {
+    expect = window.expect;
+    cryptoUtil = new window.Crypto();
   }
 
-  before("initialize crypto library", function(callback){
-      callback();
+  before('initialize crypto library', function(callback) {
+    callback();
   });
 
-  context('external functions', function(){
+  context('external functions', function() {
+    it('can validate a public and private key', function() {
+      var keys = cryptoUtil.createKeyPair();
 
-     it('can validate a public and private key', function() {
+      expect(cryptoUtil.validatePrivateKey(keys.privateKey, 'base64')).to.equal(true);
+      expect(cryptoUtil.validatePublicKey(keys.publicKey, 'base64')).to.equal(true);
 
-        var keys = cryptoUtil.createKeyPair();
-
-        expect(cryptoUtil.validatePrivateKey(keys.privateKey, 'base64')).to.equal(true);
-        expect(cryptoUtil.validatePublicKey(keys.publicKey, 'base64')).to.equal(true);
-
-        expect(cryptoUtil.validatePrivateKey('DODGE')).to.equal(false);
-        expect(cryptoUtil.validatePublicKey('DODGE')).to.equal(false);
-
+      expect(cryptoUtil.validatePrivateKey('DODGE')).to.equal(false);
+      expect(cryptoUtil.validatePublicKey('DODGE')).to.equal(false);
     });
 
-    it("encrypts data with a public key, and decrypt with a private key", function (callback) {
+    it('encrypts data with a public key, and decrypt with a private key', function(callback) {
+      var message = JSON.stringify({ test: Date.now() });
 
-        var message = JSON.stringify({test:Date.now()});
+      var encryptorKeys = cryptoUtil.createKeyPair();
+      var decryptorKeys = cryptoUtil.createKeyPair();
 
-        var encryptorKeys = cryptoUtil.createKeyPair();
-        var decryptorKeys = cryptoUtil.createKeyPair();
+      var encryptedData = cryptoUtil.asymmetricEncrypt(
+        decryptorKeys.publicKey,
+        encryptorKeys.privateKey,
+        message
+      );
+      var decrypted = cryptoUtil.asymmetricDecrypt(
+        encryptorKeys.publicKey,
+        decryptorKeys.privateKey,
+        encryptedData
+      );
+      var decryptedData = JSON.parse(
+        cryptoUtil.asymmetricDecrypt(
+          encryptorKeys.publicKey,
+          decryptorKeys.privateKey,
+          encryptedData
+        )
+      );
 
-        var encryptedData = cryptoUtil.asymmetricEncrypt(decryptorKeys.publicKey, encryptorKeys.privateKey, message);
-        var decrypted = cryptoUtil.asymmetricDecrypt(encryptorKeys.publicKey, decryptorKeys.privateKey, encryptedData);
-        var decryptedData = JSON.parse(cryptoUtil.asymmetricDecrypt(encryptorKeys.publicKey, decryptorKeys.privateKey, encryptedData));
+      expect(decryptedData.test).to.equal(JSON.parse(message).test);
 
-        expect(decryptedData.test).to.equal(JSON.parse(message).test);
-
-        callback();
+      callback();
     });
 
-    it("encrypts and decrypts a string", function (callback) {
-
-      var testString = "this is a test";
+    it('encrypts and decrypts a string', function(callback) {
+      var testString = 'this is a test';
 
       var encrypted = cryptoUtil.symmetricEncryptObject(testString, 'testkey');
 
@@ -62,13 +69,10 @@ describe("crypto-test", function () {
       expect(decrypted).to.equal(testString);
 
       callback();
-
     });
 
-
-    it("encrypts and decrypts an object", function (callback) {
-
-      var testObj = {"test":"blah"};
+    it('encrypts and decrypts an object', function(callback) {
+      var testObj = { test: 'blah' };
 
       var encrypted = cryptoUtil.symmetricEncryptObject(testObj, 'testkey');
 
@@ -77,16 +81,14 @@ describe("crypto-test", function () {
       expect(decrypted.test).to.equal(testObj.test);
 
       callback();
-
     });
 
-    it("encrypts and decrypts a string with an iv", function (callback) {
-
+    it('encrypts and decrypts a string with an iv', function(callback) {
       var iv = cryptoUtil.randomBytes(16);
 
-      var key = "XwPp9xazJ0ku5CZnlmgAx2Dld8SHkAeT";
+      var key = 'XwPp9xazJ0ku5CZnlmgAx2Dld8SHkAeT';
 
-      var testString = "this is a test";
+      var testString = 'this is a test';
 
       var encrypted = cryptoUtil.symmetricEncryptiv(testString, key, iv);
 
@@ -97,17 +99,14 @@ describe("crypto-test", function () {
       expect(decrypted).to.equal(testString);
 
       callback();
-
     });
 
-
-    it("encrypts and decrypts an object with an iv", function (callback) {
-
+    it('encrypts and decrypts an object with an iv', function(callback) {
       var iv = cryptoUtil.randomBytes(16);
 
-      var key = "XwPp9xazJ0ku5CZnlmgAx2Dld8SHkAeT";
+      var key = 'XwPp9xazJ0ku5CZnlmgAx2Dld8SHkAeT';
 
-      var testObj = {"test":"blah"};
+      var testObj = { test: 'blah' };
 
       var encrypted = cryptoUtil.symmetricEncryptObjectiv(testObj, key, iv);
 
@@ -116,11 +115,9 @@ describe("crypto-test", function () {
       expect(decrypted.test).to.equal(testObj.test);
 
       callback();
-
     });
 
-    it("signs a nonce and verifies it", function (callback) {
-
+    it('signs a nonce and verifies it', function(callback) {
       var nonce = cryptoUtil.generateNonce('TESTVALUE');
       var nonce1 = cryptoUtil.generateNonce();
       var nonce2 = cryptoUtil.generateNonce('TESTVALUE');
@@ -134,7 +131,6 @@ describe("crypto-test", function () {
       var digest1 = cryptoUtil.sign(nonce1, keyPair1.privateKey);
       var digest2 = cryptoUtil.sign(nonce2, keyPair.privateKey);
 
-
       expect(digest).to.equal(digest2);
       expect(digest).to.not.equal(digest1);
 
@@ -144,7 +140,6 @@ describe("crypto-test", function () {
       expect(cryptoUtil.verify(nonce, digest1, keyPair.publicKey)).to.equal(false);
 
       callback();
-
     });
   });
 });
