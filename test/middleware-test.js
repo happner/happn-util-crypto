@@ -62,7 +62,6 @@ describe('middleware-test', function() {
     try {
       getBody('http://127.0.0.1:8080/happn_util_crypto', function(e, body) {
         if (e) return callback(e);
-
         expect(body.substring(0, 21)).to.equal('/**HAPPN CRYPTO UTILS');
         callback();
       });
