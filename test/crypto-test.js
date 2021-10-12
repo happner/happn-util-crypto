@@ -4,7 +4,6 @@ describe('crypto-test', function() {
   var cryptoUtil;
   let browserKeys, browserKeys2;
   if (typeof window === 'undefined') {
-    console.log('NO WINDOW');
     let chai = require('chai');
     crypto = require('../lib/crypto');
     cryptoUtil = new crypto();

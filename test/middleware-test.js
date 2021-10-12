@@ -1,9 +1,6 @@
 describe('middleware-test', function() {
   var chai = require('chai');
-  var should = chai.should();
   var expect = chai.expect;
-  var async = require('async');
-  var request = require('request');
   var crypto = require('../lib/crypto');
   var cryptoUtil = new crypto();
   var connect = require('connect');
