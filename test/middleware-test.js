@@ -1,9 +1,6 @@
 describe('middleware-test', function() {
   var chai = require('chai');
-  var should = chai.should();
   var expect = chai.expect;
-  var async = require('async');
-  var request = require('request');
   var crypto = require('../lib/crypto');
   var cryptoUtil = new crypto();
   var connect = require('connect');
@@ -62,7 +59,6 @@ describe('middleware-test', function() {
     try {
       getBody('http://127.0.0.1:8080/happn_util_crypto', function(e, body) {
         if (e) return callback(e);
-
         expect(body.substring(0, 21)).to.equal('/**HAPPN CRYPTO UTILS');
         callback();
       });

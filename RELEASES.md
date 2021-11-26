@@ -32,3 +32,8 @@
 2020-04-29 1.0.2
 ----------------
 - fix missing build/lib folder in npm package
+
+2021-11-26 2.0.0
+----------------
+- Removed dependences on bitcore-lib, only using node's crypto and crypto-browserify
+- Changes to keypair creation and assymetric encryption/decryption to use the above
